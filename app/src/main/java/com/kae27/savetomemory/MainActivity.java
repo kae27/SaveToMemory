@@ -52,19 +52,15 @@ public class MainActivity extends AppCompatActivity {
 
                 int count;
                 String from = "http://128.199.87.10/stateArea.txt";
-
+                File file =new File(path+"/stateArea.txt");
 
                 try {
                     URL url = new URL(from);
                     URLConnection conexion = url.openConnection();
                     conexion.connect();
 
-                    File file =new File(path+"/stateArea.txt");
-
                     int lenghtOfFile = conexion.getContentLength(); // Size of file
                     InputStream input = new BufferedInputStream(url.openStream());
-
-                    Log.i("txt ","size of file = "+lenghtOfFile);
 
                     //String fileName = from.substring(from.lastIndexOf('/')+1, from.length());
                     OutputStream output = new FileOutputStream(file); // save to parh sd card
