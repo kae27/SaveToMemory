@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.BufferedInputStream;
@@ -17,6 +18,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -29,7 +31,7 @@ import java.net.URLConnection;
 public class MainActivity extends AppCompatActivity {
 
     public String path = Environment.getExternalStorageDirectory().getAbsolutePath()+ "/kae27";
-
+    TextView txtV;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +49,34 @@ public class MainActivity extends AppCompatActivity {
 
 
         Button btnDownload = (Button) findViewById(R.id.btnDownload);
+        Button btnRead= (Button) findViewById(R.id.btnRead);
+        txtV = (TextView) findViewById(R.id.tv1);
+
+        btnRead.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                try {
+
+                    File file = new File(path+"/stateArea.txt");
+
+                    BufferedReader br = new BufferedReader(new FileReader(file));
+                    String line;
+                    line = br.readLine();
+                    br.close();
+                    file = null;
+
+                    txtV.setText(line);
+
+                } catch (Exception e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                    Toast.makeText(MainActivity.this, "Failed! = " + e.getMessage() ,
+                            Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
         btnDownload.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
